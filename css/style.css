@@ -31,6 +31,7 @@
 /* ---------- tags ---------- */
 
 body {
+    background-color: #fafafa;
     font-family: "Roboto", sans-serif;
 }
 
@@ -67,6 +68,20 @@ html {
 *:before,
 *:after {
     box-sizing: inherit;
+}
+
+/* ---------- hiding arrows from input number ---------- */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* ---------- classes ---------- */
@@ -144,6 +159,74 @@ html {
     z-index: 1;
     top: 0;
     left: 0;
+}
+
+/* Create Quizz */
+
+.b-step-questions {
+    background-color: #ec362d;
+    border: none;
+    border-radius: 18px;
+    color: #fff5f4;
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    font-family: inherit;
+    font-size: 21px;
+    height: 54px;
+    width: 370px;
+
+}
+
+.c-create-quizz__content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    margin: 37px 0;
+    text-align: center;
+}
+
+.c-create-quizz__content input {
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 19px;
+    font-weight: 400;
+    height: 46px;
+    line-height: 22px;
+    margin: 5px 0;
+    outline: none;
+    padding: 0 10px;
+}
+
+.c-create-quizz__content input::placeholder {
+    color:#bababa;
+    font-style: italic;
+    opacity: 1;
+}
+
+.c-start-inputs {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    margin: 32px 0;
+    width: 600px;
+}
+
+@media (max-width: 1100px) {
+    .b-step-questions {
+        font-size: 18px;
+        line-height: 21px;
+        width: 325px;
+    }
+
+    .c-start-inputs {
+        width: 375px;
+    }
 }
 
 /* Status */
