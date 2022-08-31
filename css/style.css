@@ -6,22 +6,148 @@
     - tags
     - classes */
 
+/* ---------- rules ---------- */
 
-/* rules */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+/* ---------- selectors ---------- */
 
-/* selectors */
+/* Homepage */
 
-/* tags */
+.c-quizzes-list__item p {
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+    color: #ffffff;
+    word-wrap: break-word;
 
-/* box-sizing best practices */
+    position: absolute;
+    z-index: 1;
+    left: 18px;
+    bottom: 14px;
+    width: 304px;
+}
+
+/* ---------- tags ---------- */
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+/* Header */
+
+header {
+    background-color: #ec362d;
+    height: 69px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 37px;
+    color: #ffffff;
+}
+
+/* ---------- box-sizing best practices ---------- */
 html {
     box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: inherit;
 }
 
+/* ---------- classes ---------- */
 
-/* classes */
+/* Homepage */
+
+.c-homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 69px;
+}
+
+.c-homepage__content {
+    margin-left: calc(15px + 18px);
+    margin-right: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.c-all-quizzes {
+    margin: 35px auto 0;
+    max-width: 355px; 
+}
+
+@media (min-width: 761px) {
+    .c-all-quizzes {
+        max-width: 710px;   
+    }
+}
+
+@media (min-width: 1116px) {
+    .c-all-quizzes {
+        max-width: 1065px;   
+    }
+}
+
+.c-all-quizzes__title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+
+    margin-bottom: 14px;
+}
+
+.c-quizzes-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c-quizzes-list__item {
+    position: relative;
+    margin-bottom: 12px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.c-quizzes-list__gradient,
+.c-quizzes-list__item img {
+    height: 181px;
+    width: 340px;
+    border-radius: 5px;
+    object-fit: cover;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(0, 0, 0, 0.5) 64.58%,
+        #000000 100%
+    );
+}
+
+.c-quizzes-list__gradient {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+/* Status */
+
+.is-inactive {
+    display: none;
+}
