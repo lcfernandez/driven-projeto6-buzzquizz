@@ -116,4 +116,62 @@ function openQuizz(quizz) {
         });
 }
 
+// Create Quizz
+
+function validateBasicInfo() {
+    const quizTitle = document.querySelector(".c-basic-info input:nth-child(1)").value;
+    const quizUrl = document.querySelector(".c-basic-info input:nth-child(2)").value;
+    const quantityQuestions = document.querySelector(".c-basic-info input:nth-child(3)").value;
+    const quantityLevels = document.querySelector(".c-basic-info input:nth-child(4)").value;
+
+    const validateTitle = function() {
+        if (quizTitle.length < 20 || quizTitle.length > 65) {
+            return false;
+        }
+    
+        return true;
+    };
+
+    const validateURL = function() {
+        let test;
+            
+        try {
+            test = new URL(quizUrl);
+        } catch (_) {
+            return false;
+        }
+          
+        return test.protocol === "http:" || test.protocol === "https:";
+    };
+
+    const validateQuantityQuestions= function() {
+        if (quantityQuestions < 3) {
+            return false;
+        }
+    
+        return true;
+    };
+
+    const validateQuantityLevels = function() {
+        if (quantityLevels < 2) {
+            return false;
+        }
+    
+        return true;
+    };
+
+    if (!(validateTitle() && validateURL() && validateQuantityQuestions() && validateQuantityLevels())) {
+        alert("Preencha os dados corretamente!");
+    } else {
+        const objectQuizz = {
+            title: quizTitle,
+            image: quizUrl,
+            questions: quantityQuestions,
+            levels: quantityLevels
+        }
+
+        console.log(objectQuizz);
+    }
+}
+
 /* ---------- events ---------- */
