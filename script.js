@@ -14,7 +14,11 @@
 
 const urlApi = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 const quizzpage = document.querySelector(".c-quizzpage");
-let quizzAnswersLi = [];
+let quizzAnswers = [];
+let quizzAnswersUl = "";
+let answeredQuestions = 0;
+let numberOfQuestions = 0;
+let quizzData = [];
 
 /* ---------- assignments ---------- */
 
@@ -54,17 +58,30 @@ function listQuizzes() {
         });
 }
 
+// Quizzpage
+
 function getAndSortAnswers(question) {
+    quizzAnswers = [];
     question.answers.forEach((option) => {
-        quizzAnswersLi.push(`
-        <li class="c-question__answer">
+        quizzAnswers.push(`
+        <li
+            class="c-question__answer"
+            data-isCorrectAnswer="${option.isCorrectAnswer}"
+            onclick="answerQuestion(this)"
+        >
             <img src="${option.image}" alt="Representação da opção de resposta">
+            <div class="c-question__foreground is-inactive"></div>
             <p>${option.text}</p>
         </li>
         `);
     });
 
-    quizzAnswersLi.sort(() => Math.random() - 0.5);
+    quizzAnswers.sort(() => Math.random() - 0.5);
+
+    quizzAnswersUl = "";
+    quizzAnswers.forEach((answer) => {
+        quizzAnswersUl += answer;
+    });
 }
 
 function openQuizz(quizz) {
@@ -93,83 +110,156 @@ function openQuizz(quizz) {
 
                 quizzpage.innerHTML += `
                 <div class="c-question">
-                    <div class="c-question__title">
+                    <div class="c-quizzpage__title">
                         <h3>${question.title}</h3>
                     </div>
                     <ul class="c-question__options">
-                        ${quizzAnswersLi}
+                        ${quizzAnswersUl}
                     </ul>
                 </div>
                 `;
-
-                quizzAnswersLi = [];
             });
+
+            numberOfQuestions = res.data.questions.length;
+            quizzData = res.data;
         })
         .catch((err) => {
             console.error(err);
         });
+
+    answeredQuestions = 0;
+}
+
+function endQuizz() {
+    quizzpage.innerHTML += `
+        <p>Acabou!</p>
+    `;
+
+    console.log(quizzData);
+}
+
+function scrollToNextQuestion() {
+    const nextQuestion = quizzpage.querySelector(
+        `.c-question:nth-of-type(${answeredQuestions + 1})`
+    );
+
+    nextQuestion.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+    });
+}
+
+function answerQuestion(selected) {
+    const eachOptionElement = Object.values(selected.parentNode.children);
+
+    // add foreground to the images and red to the text
+    const allOptions = selected.parentNode;
+    allOptions.classList.add("is-answered");
+
+    eachOptionElement.forEach((optionElement) => {
+        optionElement.setAttribute("onclick", "");
+
+        // change the color of the correct answer to green
+        const isCorrectAnswer =
+            optionElement.dataset.iscorrectanswer === "true";
+        if (isCorrectAnswer) {
+            optionElement.classList.add("is-correct");
+        }
+
+        // remove the foreground of the selected option
+        const wasSelected = optionElement === selected;
+        if (wasSelected) {
+            optionElement.classList.add("is-selected");
+        }
+    });
+
+    answeredQuestions++;
+    if (numberOfQuestions === answeredQuestions) {
+        setTimeout(endQuizz, 2000);
+    } else {
+        setTimeout(scrollToNextQuestion, 2000);
+    }
 }
 
 // Create Quizz
 
-function criarQuizz(){
-    const caixaCriarQuizz = document.querySelector(".create-quizz")
+function criarQuizz() {
+    const caixaCriarQuizz = document.querySelector(".create-quizz");
     caixaCriarQuizz.classList.add("is-inactive");
 
     const paginaInicial = document.querySelector(".c-homepage__content");
     paginaInicial.classList.add("is-inactive");
 
     const abaCriarQuizz = document.querySelector(".c-create-quizz");
-    abaCriarQuizz.classList.remove('is-inactive');
+    abaCriarQuizz.classList.remove("is-inactive");
 }
 
 function validateBasicInfo() {
-    const quizTitle = document.querySelector(".c-form-quizz input:nth-child(1)").value;
-    const quizUrl = document.querySelector(".c-form-quizz input:nth-child(2)").value;
-    const quantityQuestions = document.querySelector(".c-form-quizz input:nth-child(3)").value;
-    const quantityLevels = document.querySelector(".c-form-quizz input:nth-child(4)").value;
+    const quizTitle = document.querySelector(
+        ".c-form-quizz input:nth-child(1)"
+    ).value;
+    const quizUrl = document.querySelector(
+        ".c-form-quizz input:nth-child(2)"
+    ).value;
+    const quantityQuestions = document.querySelector(
+        ".c-form-quizz input:nth-child(3)"
+    ).value;
+    const quantityLevels = document.querySelector(
+        ".c-form-quizz input:nth-child(4)"
+    ).value;
 
-    const validateTitle = function() {
+    const validateTitle = function () {
         if (quizTitle.length < 20 || quizTitle.length > 65) {
             return false;
         }
-    
+
         return true;
     };
 
-    const validateURL = function() {
+    const validateURL = function () {
         let test;
-            
+
         try {
             test = new URL(quizUrl);
         } catch (_) {
             return false;
         }
-          
+
         return test.protocol === "http:" || test.protocol === "https:";
     };
 
-    const validateQuantityQuestions= function() {
+    const validateQuantityQuestions = function () {
         if (quantityQuestions < 3) {
             return false;
         }
-    
+
         return true;
     };
 
-    const validateQuantityLevels = function() {
+    const validateQuantityLevels = function () {
         if (quantityLevels < 2) {
             return false;
         }
-    
+
         return true;
     };
 
-    if (!(validateTitle() && validateURL() && validateQuantityQuestions() && validateQuantityLevels())) {
+    if (
+        !(
+            validateTitle() &&
+            validateURL() &&
+            validateQuantityQuestions() &&
+            validateQuantityLevels()
+        )
+    ) {
         alert("Preencha os dados corretamente!");
     } else {
-        document.querySelector(".c-create-quizz__content").classList.add("is-inactive");
-        document.querySelector(".c-create-questions__content").classList.remove("is-inactive");
+        document
+            .querySelector(".c-create-quizz__content")
+            .classList.add("is-inactive");
+        document
+            .querySelector(".c-create-questions__content")
+            .classList.remove("is-inactive");
 
         const cQuestions = document.querySelector(".c-questions");
 
@@ -228,14 +318,13 @@ function validateBasicInfo() {
             title: quizTitle,
             image: quizUrl,
             questions: quantityQuestions,
-            levels: quantityLevels
-        }
+            levels: quantityLevels,
+        };
 
         console.log(objectQuizz);
     }
 }
 
-function validateQuestionsInfo() {
-}
+function validateQuestionsInfo() {}
 
 /* ---------- events ---------- */
