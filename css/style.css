@@ -14,7 +14,8 @@
 
 /* Homepage */
 
-.c-quizzes-list__item h2 {
+.c-quizzes-list__item h2,
+.lista-quizz__item h2 {
     font-weight: 400;
     font-size: 19px;
     line-height: 22px;
@@ -116,6 +117,42 @@ input[type=number] {
     margin-top: 69px;
 }
 
+.create-quizz{
+    background-color: #fafafa;
+    border: #d4d4d4 dashed 2px;
+    border-radius: 4px;
+    margin: 50px 0px;
+    height: 181px;
+    width: 1051px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-quizz span{
+    color:#b9b9b9;
+    font-size: 20px;
+    width: 250px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.create-quizz__button{
+    background-color: #FAFAFA;
+    width: 151px;
+    height: 40px;
+    border: #EC362D dashed 1px;
+    border-radius: 50px;
+    font-size: 21px;
+    color: #EC362D;
+}
+
+.create-quizz__button:hover{
+    cursor: pointer;
+}
+
 .c-homepage__content {
     margin-left: calc(15px + 18px);
     margin-right: 18px;
@@ -148,12 +185,52 @@ input[type=number] {
     margin-bottom: 14px;
 }
 
-.c-quizzes-list {
+.c-quizzes-list, .lista-quizz {
     display: flex;
     flex-wrap: wrap;
 }
 
-.c-quizzes-list__item {
+.your-quizzes__content{
+    margin-left: calc(15px + 18px);
+    margin-right: 18px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.your-quizzes {
+    margin: 35px auto 0;
+ 
+}
+
+.lista-quizz{
+    display: flex;
+    margin-top: 20px;
+}
+
+.your-quizzes__title{
+    display: flex;
+    align-items: center;
+}
+
+.your-quizzes ion-icon{
+    font-size: 31px;
+    color: #EC362D;
+}
+
+.your-quizzes ion-icon:hover{
+    cursor: pointer;
+}
+
+.your-quizzes span{
+    font-size: 20px;
+    font-weight: 700;
+    display: block;
+    margin-right: 15px;
+
+}
+
+.c-quizzes-list__item, .lista-quizz__item {
     position: relative;
     margin-bottom: 12px;
     margin-right: 15px;
@@ -161,7 +238,8 @@ input[type=number] {
 }
 
 .c-quizzes-list__gradient,
-.c-quizzes-list__item img {
+.c-quizzes-list__item img ,
+.lista-quizz__item img{
     height: 181px;
     width: 340px;
     border-radius: 5px;
