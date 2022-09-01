@@ -235,10 +235,14 @@ input[type="number"] {
     margin-top: 30px;
     display: flex;
     justify-content: center;
+    align-self:flex-start;
 }
 
 .your-quizzes {
-    margin: 35px auto 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: 55px;
 }
 
 .lista-quizz {
