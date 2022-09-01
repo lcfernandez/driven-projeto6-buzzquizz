@@ -1,117 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-        <title>BuzzQuizz</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-        <link rel="stylesheet" href="./css/reset.css" />
-        <link rel="stylesheet" href="./css/style.css" />
+    <title>BuzzQuizz</title>
 
-        <link rel="shortcut icon" type="image/png" href="favicon.png" />
-    </head>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
 
-    <body>
-        <header class="main-header">
-            <h1>BuzzQuizz</h1>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+</head>
+
+<body>
+    <header class="main-header">
+        <h1>BuzzQuizz</h1>
+    </header>
+
+    <main class="c-homepage">
+
+        <div class="create-quizz">
+            <span>Você não criou nenhum quizz ainda :(</span>
+            <button class="create-quizz__button" onclick="criarQuizz()">Criar Quizz</button>
+        </div>
+
+        <div class="your-quizzes__content  is-inactive">
+            <div class="your-quizzes">
+                <div class="your-quizzes__title">
+                    <span>Seus Quizzes</span>
+                    <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
+                </div>
+                <ul class="lista-quizz">
+                    <li class="lista-quizz__item" onclick="openQuizz(this)">
+                        <img src="https://lumiere-a.akamaihd.net/v1/images/original_1628718691_los-simpson---star_-_3_e73a2761.jpeg?region=0,379,1300,732&width=960"
+                            alt="Capa do quizz" />
+                        <div class="c-quizzes-list__gradient"></div>
+                        <h2>
+                            Acerte os personagens corretos dos Simpsons e
+                            prove seu amor!
+                        </h2>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="c-homepage__content">
+            <div class="c-all-quizzes">
+                <h2 class="c-all-quizzes__title">Todos os Quizzes</h2>
+                <ul class="c-quizzes-list">
+                    <li class="c-quizzes-list__item" onclick="openQuizz(this)">
+                        <img src="https://lumiere-a.akamaihd.net/v1/images/original_1628718691_los-simpson---star_-_3_e73a2761.jpeg?region=0,379,1300,732&width=960"
+                            alt="Capa do quizz" />
+                        <div class="c-quizzes-list__gradient"></div>
+                        <h2>
+                            Acerte os personagens corretos dos Simpsons e
+                            prove seu amor!
+                        </h2>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <main class="c-quizzpage is-inactive">
+        <header class="c-quizzpage__header">
+            <img src="https://http.cat/411.jpg" alt="Capa do quizz" />
+            <div class="c-quizzpage__header__foreground"></div>
+            <h2>O quão Potterhead é você?</h2>
         </header>
-
-        <main class="c-homepage">
-            <div class="c-homepage__content">
-                <div class="c-all-quizzes">
-                    <h2 class="c-all-quizzes__title">Todos os Quizzes</h2>
-                    <ul class="c-quizzes-list">
-                        <li
-                            class="c-quizzes-list__item"
-                            onclick="openQuizz(this)"
-                        >
-                            <img
-                                src="https://lumiere-a.akamaihd.net/v1/images/original_1628718691_los-simpson---star_-_3_e73a2761.jpeg?region=0,379,1300,732&width=960"
-                                alt="Capa do quizz"
-                            />
-                            <div class="c-quizzes-list__gradient"></div>
-                            <h2>
-                                Acerte os personagens corretos dos Simpsons e
-                                prove seu amor!
-                            </h2>
-                        </li>
-                    </ul>
-                </div>
+        <div class="c-question">
+            <div class="c-question__title">
+                <h3>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h3>
             </div>
+    </main>
 
-            <div class="c-create-quizz__content is-inactive">
-                <h2 class="c-create-quizz__title">Comece pelo começo</h2>
-    
-                <div class="c-start-inputs">
-                    <input type="text" placeholder="Título do seu quizz"/>
-                    <input type="url" placeholder="URL da imagem do seu quizz"/>
-                    <input type="number" placeholder="Quantidade de perguntas do quizz"/>
-                    <input type="number" placeholder="Quantidade de níveis do quizz"/>
-                </div>
-    
-                <button class="b-step-questions">Prosseguir pra criar perguntas</button>
+    <main class="c-create-quizz is-inactive">
+        <div class="c-create-quizz__content">
+            <h2>Comece pelo começo</h2>
+
+            <div class="c-form-quizz">
+                <input type="text" placeholder="Título do seu quizz" />
+                <input type="url" placeholder="URL da imagem do seu quizz" />
+                <input type="number" placeholder="Quantidade de perguntas do quizz" />
+                <input type="number" placeholder="Quantidade de níveis do quizz" />
             </div>
-        </main>
+            <!-- c-form-quizz -->
 
-        <main class="c-quizzpage is-inactive">
-            <header class="c-quizzpage__header">
-                <img src="https://http.cat/411.jpg" alt="Capa do quizz" />
-                <div class="c-quizzpage__header__foreground"></div>
-                <h2>O quão Potterhead é você?</h2>
-            </header>
-            <div class="c-question">
-                <div class="c-question__title">
-                    <h3>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h3>
-                </div>
-                <ul class="c-question__options">
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                </ul>
-            </div>
-            <div class="c-question">
-                <div class="c-question__title">
-                    <h3>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h3>
-                </div>
-                <ul class="c-question__options">
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                    <li class="c-question__answer">
-                        <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg" alt="Representação da opção de resposta">
-                        <p>Mustela putorius (o Furão)</p>
-                    </li>
-                </ul>
-            </div>
-        </main>
+            <button class="b-next-step" onclick="validateBasicInfo()">Prosseguir pra criar perguntas</button>
+        </div>
+        <!-- c-create-quizz__content -->
 
-        <!-- Axios installation -->
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <div class="c-create-questions__content is-inactive">
+            <h2>Crie suas perguntas</h2>
 
-        <script src="./script.js"></script>
-    </body>
+            <div class="c-questions"></div>
+
+            <button class="b-next-step" onclick="validateQuestionsInfo()">Prosseguir pra criar níveis</button>
+        </div>
+        <!-- c-create-questions__content -->
+    </main>
+    <!-- c-create-quizz -->
+
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Axios installation -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="./script.js"></script>
+</body>
+
 </html>
