@@ -380,7 +380,6 @@ input[type=number] {
     height: 54px;
     margin: 32px;
     width: 370px;
-
 }
 
 .c-create-quizz__content,
@@ -440,7 +439,7 @@ input[type=number] {
     margin: 5px 0;
 }
 
-.c-questions__title {
+.c-question__number {
     display: flex;
     justify-content: space-between;
 }

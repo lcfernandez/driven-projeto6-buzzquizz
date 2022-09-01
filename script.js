@@ -130,10 +130,10 @@ function criarQuizz(){
 }
 
 function validateBasicInfo() {
-    const quizTitle = document.querySelector(".c-basic-info input:nth-child(1)").value;
-    const quizUrl = document.querySelector(".c-basic-info input:nth-child(2)").value;
-    const quantityQuestions = document.querySelector(".c-basic-info input:nth-child(3)").value;
-    const quantityLevels = document.querySelector(".c-basic-info input:nth-child(4)").value;
+    const quizTitle = document.querySelector(".c-form-quizz input:nth-child(1)").value;
+    const quizUrl = document.querySelector(".c-form-quizz input:nth-child(2)").value;
+    const quantityQuestions = document.querySelector(".c-form-quizz input:nth-child(3)").value;
+    const quantityLevels = document.querySelector(".c-form-quizz input:nth-child(4)").value;
 
     const validateTitle = function() {
         if (quizTitle.length < 20 || quizTitle.length > 65) {
@@ -174,6 +174,62 @@ function validateBasicInfo() {
     if (!(validateTitle() && validateURL() && validateQuantityQuestions() && validateQuantityLevels())) {
         alert("Preencha os dados corretamente!");
     } else {
+        document.querySelector(".c-create-quizz__content").classList.add("is-inactive");
+        document.querySelector(".c-create-questions__content").classList.remove("is-inactive");
+
+        const cQuestions = document.querySelector(".c-questions");
+
+        for (let i = 1; i <= quantityQuestions; i++) {
+            cQuestions.innerHTML += `
+                <div class="c-form-quizz">
+                    <section class="s-question">
+                        <div class="c-question__number">
+                            <h2>Pergunta ${i}</h2>
+                        </div>
+
+                        <div class="c-fields">
+                            <input type="text" placeholder="Texto da pergunta"/>
+                            <input type="text" placeholder="Cor de fundo da pergunta"/>
+                        </div>
+                        <!-- c-fields -->
+                    </section>
+
+                    <section class="s-right-answer">
+                        <h2>Resposta correta</h2>
+
+                        <div class="c-fields">
+                            <input type="text" placeholder="Texto da pergunta"/>
+                            <input type="text" placeholder="Cor de fundo da pergunta"/>
+                        </div>
+                        <!-- c-fields -->
+                    </section>
+
+                    <section class="s-wrong-answers">
+                        <h2>Respostas incorretas</h2>
+
+                        <div class="c-fields">
+                            <input type="text" placeholder="Texto da pergunta"/>
+                            <input type="text" placeholder="Cor de fundo da pergunta"/>
+                        </div>
+                        <!-- c-fields -->
+
+                        <div class="c-fields">
+                            <input type="text" placeholder="Texto da pergunta"/>
+                            <input type="text" placeholder="Cor de fundo da pergunta"/>
+                        </div>
+                        <!-- c-fields -->
+
+                        <div class="c-fields">
+                            <input type="text" placeholder="Texto da pergunta"/>
+                            <input type="text" placeholder="Cor de fundo da pergunta"/>
+                        </div>
+                        <!-- c-fields -->
+                    </section>
+                </div>
+                <!-- c-form-quizz -->
+            `;
+        }
+
         const objectQuizz = {
             title: quizTitle,
             image: quizUrl,
@@ -183,6 +239,9 @@ function validateBasicInfo() {
 
         console.log(objectQuizz);
     }
+}
+
+function validateQuestionsInfo() {
 }
 
 /* ---------- events ---------- */
