@@ -59,7 +59,7 @@
                             prove seu amor!
                         </h2>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -88,57 +88,97 @@
             <div class="c-question__title">
                 <h3>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h3>
             </div>
-            <ul class="c-question__options">
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-            </ul>
-        </div>
-        <div class="c-question">
-            <div class="c-question__title">
-                <h3>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h3>
-            </div>
-            <ul class="c-question__options">
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-                <li class="c-question__answer">
-                    <img src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/furao-de-estimacao.jpg"
-                        alt="Representação da opção de resposta">
-                    <p>Mustela putorius (o Furão)</p>
-                </li>
-            </ul>
-        </div>
     </main>
+
+    <main class="c-create-quizz is-inactive">
+        <div class="c-create-quizz__content">
+            <h2>Comece pelo começo</h2>
+
+            <div class="c-form-quizz">
+                <input type="text" placeholder="Título do seu quizz" />
+                <input type="url" placeholder="URL da imagem do seu quizz" />
+                <input type="number" placeholder="Quantidade de perguntas do quizz" />
+                <input type="number" placeholder="Quantidade de níveis do quizz" />
+            </div>
+            <!-- c-form-quizz -->
+
+            <button class="b-next-step" onclick="validateBasicInfo()">Prosseguir pra criar perguntas</button>
+        </div>
+        <!-- c-create-quizz__content -->
+
+        <div class="c-create-questions__content is-inactive">
+            <h2>Crie suas perguntas</h2>
+
+            <div class="c-form-quizz">
+                <section class="s-question">
+                    <div class="c-questions__title">
+                        <h2>Pergunta 1</h2>
+                    </div>
+
+                    <div class="c-fields">
+                        <input type="text" placeholder="Texto da pergunta" />
+                        <input type="text" placeholder="Cor de fundo da pergunta" />
+                    </div>
+                    <!-- c-fields -->
+                </section>
+
+                <section class="s-right-answer">
+                    <h2>Resposta correta</h2>
+
+                    <div class="c-fields">
+                        <input type="text" placeholder="Texto da pergunta" />
+                        <input type="text" placeholder="Cor de fundo da pergunta" />
+                    </div>
+                    <!-- c-fields -->
+                </section>
+
+                <section class="s-wrong-answers">
+                    <h2>Respostas incorretas</h2>
+
+                    <div class="c-fields">
+                        <input type="text" placeholder="Texto da pergunta" />
+                        <input type="text" placeholder="Cor de fundo da pergunta" />
+                    </div>
+                    <!-- c-fields -->
+
+                    <div class="c-fields">
+                        <input type="text" placeholder="Texto da pergunta" />
+                        <input type="text" placeholder="Cor de fundo da pergunta" />
+                    </div>
+                    <!-- c-fields -->
+
+                    <div class="c-fields">
+                        <input type="text" placeholder="Texto da pergunta" />
+                        <input type="text" placeholder="Cor de fundo da pergunta" />
+                    </div>
+                    <!-- c-fields -->
+                </section>
+            </div>
+            <!-- c-form-quizz-->
+
+            <div class="c-form-quizz">
+                <section class="s-question">
+                    <div class="c-questions__title">
+                        <h2>Pergunta 2</h2> <img src="./far-fa-edit.svg" />
+                    </div>
+                </section>
+            </div>
+            <!-- c-form-quizz-->
+
+            <div class="c-form-quizz">
+                <section class="s-question">
+                    <div class="c-questions__title">
+                        <h2>Pergunta 3</h2> <img src="./far-fa-edit.svg" />
+                    </div>
+                </section>
+            </div>
+            <!-- c-form-quizz-->
+
+            <button class="b-next-step" onclick="validateBasicInfo()">Prosseguir pra criar níveis</button>
+        </div>
+        <!-- c-create-questions__content -->
+    </main>
+    <!-- c-create-quizz -->
 
     <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
