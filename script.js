@@ -18,7 +18,8 @@ let quizzAnswers = [];
 let quizzAnswersUl = "";
 let answeredQuestions = 0;
 let numberOfQuestions = 0;
-let quizzData = [];
+let quizzData = {};
+let pontuation = 0;
 
 /* ---------- assignments ---------- */
 
@@ -131,11 +132,42 @@ function openQuizz(quizz) {
 }
 
 function endQuizz() {
+    pontuation = Math.round(pontuation/numberOfQuestions*100);
+    let bestLevel = {};
+
+    quizzData.levels.forEach((level) => {
+        const pontuationHigherThanLevel = pontuation >= level.minValue;
+        const firstLevelChecked = bestLevel.minValue === undefined;
+        const levelHigherThanCurrentBest = bestLevel.minValue < level.minValue;
+
+        if (
+            pontuationHigherThanLevel &&
+            (firstLevelChecked || levelHigherThanCurrentBest)
+        ) {
+            bestLevel = level;
+        }
+    });
+
     quizzpage.innerHTML += `
-        <p>Acabou!</p>
+        <div class="c-quizzpage__result">
+            <div class="c-quizzpage__title">
+                <h3>
+                    ${pontuation}% de acerto: ${bestLevel.title}
+                </h3>
+            </div>
+            <div class="c-quizzpage__img-text">
+                <img src="${bestLevel.image}" alt="Representação do seu nível no quizz" />
+                <p>${bestLevel.text}</p>
+            </div>
+        </div>
+        <button class="c-quizzpage__restart-quizz">Reiniciar Quizz</button>
+        <button class="c-quizzpage__return-home">Voltar para home</button>
     `;
 
-    console.log(quizzData);
+
+    document.querySelector(".c-quizzpage__return-home").scrollIntoView({
+        behavior: "smooth",
+    });
 }
 
 function scrollToNextQuestion() {
@@ -173,6 +205,12 @@ function answerQuestion(selected) {
         }
     });
 
+    // score if correct
+    if(selected.classList.contains('is-correct')){
+        pontuation++;
+    }
+
+    // scroll to next question or end quizz
     answeredQuestions++;
     if (numberOfQuestions === answeredQuestions) {
         setTimeout(endQuizz, 2000);
