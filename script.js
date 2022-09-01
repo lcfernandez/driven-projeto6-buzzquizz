@@ -87,6 +87,7 @@ function getAndSortAnswers(question) {
 
 function openQuizz(quizz) {
     const quizzId = quizz.dataset.id;
+    let renderedQuestions = 0;
 
     const homepage = document.querySelector(".c-homepage");
     homepage.classList.add("is-inactive");
@@ -119,6 +120,14 @@ function openQuizz(quizz) {
                     </ul>
                 </div>
                 `;
+
+                renderedQuestions++;
+                const questionTitleElement = quizzpage
+                    .querySelector(
+                        `.c-question:nth-of-type(${renderedQuestions})`
+                    )
+                    .querySelector(".c-quizzpage__title");
+                questionTitleElement.style.backgroundColor = question.color;
             });
 
             numberOfQuestions = res.data.questions.length;
@@ -132,7 +141,7 @@ function openQuizz(quizz) {
 }
 
 function endQuizz() {
-    pontuation = Math.round(pontuation/numberOfQuestions*100);
+    pontuation = Math.round((pontuation / numberOfQuestions) * 100);
     let bestLevel = {};
 
     quizzData.levels.forEach((level) => {
@@ -163,7 +172,6 @@ function endQuizz() {
         <button class="c-quizzpage__restart-quizz">Reiniciar Quizz</button>
         <button class="c-quizzpage__return-home">Voltar para home</button>
     `;
-
 
     document.querySelector(".c-quizzpage__return-home").scrollIntoView({
         behavior: "smooth",
@@ -206,7 +214,7 @@ function answerQuestion(selected) {
     });
 
     // score if correct
-    if(selected.classList.contains('is-correct')){
+    if (selected.classList.contains("is-correct")) {
         pontuation++;
     }
 
