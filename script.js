@@ -14,7 +14,7 @@
 
 const urlApi = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 const quizzpage = document.querySelector(".c-quizzpage");
-let quizzAnswersLi = "";
+let quizzAnswersLi = [];
 
 /* ---------- assignments ---------- */
 
@@ -54,16 +54,17 @@ function listQuizzes() {
         });
 }
 
-function getAnswers(answer) {
-    answer.forEach(()=>{
-        console.log(answer)
-        /* quizzAnswersLi += `
-            <li class="c-question__answer">
-                <img src="${answer.image}" alt="Representação da opção de resposta">
-                <p>${answer.text}</p>
-            </li>
-        `; */
+function getAndSortAnswers(question) {
+    question.answers.forEach((option) => {
+        quizzAnswersLi.push(`
+        <li class="c-question__answer">
+            <img src="${option.image}" alt="Representação da opção de resposta">
+            <p>${option.text}</p>
+        </li>
+        `);
     });
+
+    quizzAnswersLi.sort(() => Math.random() - 0.5);
 }
 
 function openQuizz(quizz) {
@@ -75,40 +76,33 @@ function openQuizz(quizz) {
     quizzpage.classList.remove("is-inactive");
 
     quizzpage.innerHTML = "";
-    quizzAnswersLi = "";
 
     axios
         .get(`${urlApi}/${quizzId}`)
         .then((res) => {
-            console.log(res.data);
-
-            quizzpage.innerHTML = `
-            <header class="c-quizzpage__header">
-                <img src="${res.data.image}" alt="Capa do quizz" />
-                <div class="c-quizzpage__header__foreground"></div>
-                <h2>${res.data.title}</h2>
-            </header>
-        `;
-
-            res.data.questions.forEach((answer) => {
-                getAnswers(answer.answers);
-            });
+            quizzpage.innerHTML += `
+                <header class="c-quizzpage__header">
+                    <img src="${res.data.image}" alt="Capa do quizz" />
+                    <div class="c-quizzpage__header__foreground"></div>
+                    <h2>${res.data.title}</h2>
+                </header>
+            `;
 
             res.data.questions.forEach((question) => {
+                getAndSortAnswers(question);
+
                 quizzpage.innerHTML += `
                 <div class="c-question">
                     <div class="c-question__title">
                         <h3>${question.title}</h3>
                     </div>
                     <ul class="c-question__options">
-                `;
-
-                question.answers.forEach(renderAnswers);
-
-                quizzpage.innerHTML += `
+                        ${quizzAnswersLi}
                     </ul>
                 </div>
-            `;
+                `;
+
+                quizzAnswersLi = [];
             });
         })
         .catch((err) => {
