@@ -233,10 +233,13 @@ function criarQuizz() {
     const caixaCriarQuizz = document.querySelector(".create-quizz");
     caixaCriarQuizz.classList.add("is-inactive");
 
+    const caixaSeusQuizzes = document.querySelector(".your-quizzes__content");
+    caixaSeusQuizzes.classList.add("is-inactive");
+
     const paginaInicial = document.querySelector(".c-homepage__content");
     paginaInicial.classList.add("is-inactive");
 
-    const abaCriarQuizz = document.querySelector(".c-create-quizz");
+    const abaCriarQuizz = document.querySelector("c-create-quizz");
     abaCriarQuizz.classList.remove("is-inactive");
 }
 
