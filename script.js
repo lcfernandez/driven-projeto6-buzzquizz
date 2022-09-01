@@ -123,6 +123,56 @@ function criarQuizz(){
     abaCriarQuizz.classList.remove('is-inactive');
 }
 
+function openQuestion(button) {
+    const questionNumber = button.parentNode;
+    const sectionQuestion = questionNumber.parentNode;
+    const formQuestion = sectionQuestion.parentNode;
+
+    questionNumber.querySelector("img").remove();
+
+    sectionQuestion.innerHTML += `
+        <div class="c-fields">
+            <input type="text" placeholder="Texto da pergunta"/>
+            <input type="text" placeholder="Cor de fundo da pergunta"/>
+        </div>
+        <!-- c-fields -->
+    `;
+
+    formQuestion.innerHTML += `
+        <section class="s-right-answer">
+            <h2>Resposta correta</h2>
+
+            <div class="c-fields">
+                <input type="text" placeholder="Texto da pergunta"/>
+                <input type="text" placeholder="Cor de fundo da pergunta"/>
+            </div>
+            <!-- c-fields -->
+        </section>
+
+        <section class="s-wrong-answers">
+            <h2>Respostas incorretas</h2>
+
+            <div class="c-fields">
+                <input type="text" placeholder="Texto da pergunta"/>
+                <input type="text" placeholder="Cor de fundo da pergunta"/>
+            </div>
+            <!-- c-fields -->
+
+            <div class="c-fields">
+                <input type="text" placeholder="Texto da pergunta"/>
+                <input type="text" placeholder="Cor de fundo da pergunta"/>
+            </div>
+            <!-- c-fields -->
+
+            <div class="c-fields">
+                <input type="text" placeholder="Texto da pergunta"/>
+                <input type="text" placeholder="Cor de fundo da pergunta"/>
+            </div>
+            <!-- c-fields -->
+        </section>
+    `;
+}
+
 function validateBasicInfo() {
     const quizTitle = document.querySelector(".c-form-quizz input:nth-child(1)").value;
     const quizUrl = document.querySelector(".c-form-quizz input:nth-child(2)").value;
@@ -178,51 +228,16 @@ function validateBasicInfo() {
                 <div class="c-form-quizz">
                     <section class="s-question">
                         <div class="c-question__number">
-                            <h2>Pergunta ${i}</h2>
+                            <h2>Pergunta ${i}</h2> <img src="./far-fa-edit.svg" onclick="openQuestion(this)" class="b-open-question" />
                         </div>
-
-                        <div class="c-fields">
-                            <input type="text" placeholder="Texto da pergunta"/>
-                            <input type="text" placeholder="Cor de fundo da pergunta"/>
-                        </div>
-                        <!-- c-fields -->
                     </section>
-
-                    <section class="s-right-answer">
-                        <h2>Resposta correta</h2>
-
-                        <div class="c-fields">
-                            <input type="text" placeholder="Texto da pergunta"/>
-                            <input type="text" placeholder="Cor de fundo da pergunta"/>
-                        </div>
-                        <!-- c-fields -->
-                    </section>
-
-                    <section class="s-wrong-answers">
-                        <h2>Respostas incorretas</h2>
-
-                        <div class="c-fields">
-                            <input type="text" placeholder="Texto da pergunta"/>
-                            <input type="text" placeholder="Cor de fundo da pergunta"/>
-                        </div>
-                        <!-- c-fields -->
-
-                        <div class="c-fields">
-                            <input type="text" placeholder="Texto da pergunta"/>
-                            <input type="text" placeholder="Cor de fundo da pergunta"/>
-                        </div>
-                        <!-- c-fields -->
-
-                        <div class="c-fields">
-                            <input type="text" placeholder="Texto da pergunta"/>
-                            <input type="text" placeholder="Cor de fundo da pergunta"/>
-                        </div>
-                        <!-- c-fields -->
-                    </section>
+                    <!-- s-question -->
                 </div>
                 <!-- c-form-quizz -->
             `;
         }
+
+        openQuestion(document.querySelector(".b-open-question"));
 
         const objectQuizz = {
             title: quizTitle,
