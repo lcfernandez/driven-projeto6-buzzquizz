@@ -20,6 +20,13 @@ let answeredQuestions = 0;
 let numberOfQuestions = 0;
 let quizzData = {};
 let pontuation = 0;
+let numberOfQuestionsCreation = 0;
+const createQuizzData = {
+    title: "",
+    image: "",
+    questions: [],
+    levels: []
+};
 
 /* ---------- assignments ---------- */
 
@@ -263,8 +270,8 @@ function openQuestion(button) {
             <h2>Resposta correta</h2>
 
             <div class="c-fields">
-                <input type="text" placeholder="Texto da pergunta"/>
-                <input type="text" placeholder="Cor de fundo da pergunta"/>
+                <input type="text" placeholder="Resposta correta"/>
+                <input type="text" placeholder="URL da imagem"/>
             </div>
             <!-- c-fields -->
         </section>
@@ -273,24 +280,34 @@ function openQuestion(button) {
             <h2>Respostas incorretas</h2>
 
             <div class="c-fields">
-                <input type="text" placeholder="Texto da pergunta"/>
-                <input type="text" placeholder="Cor de fundo da pergunta"/>
+                <input type="text" placeholder="Resposta correta 1"/>
+                <input type="text" placeholder="URL da imagem 1"/>
             </div>
             <!-- c-fields -->
 
             <div class="c-fields">
-                <input type="text" placeholder="Texto da pergunta"/>
-                <input type="text" placeholder="Cor de fundo da pergunta"/>
+                <input type="text" placeholder="Resposta correta 2"/>
+                <input type="text" placeholder="URL da imagem 2"/>
             </div>
             <!-- c-fields -->
 
             <div class="c-fields">
-                <input type="text" placeholder="Texto da pergunta"/>
-                <input type="text" placeholder="Cor de fundo da pergunta"/>
+                <input type="text" placeholder="Resposta correta 3"/>
+                <input type="text" placeholder="URL da imagem 3"/>
             </div>
             <!-- c-fields -->
         </section>
     `;
+}
+
+function returnArrayValues(array) {
+    const newArray = [];
+
+    for (let i = 0; i < array.length; i++) {
+        newArray.push(array[i].value);
+    }
+
+    return newArray;
 }
 
 function validateBasicInfo() {
@@ -307,7 +324,7 @@ function validateBasicInfo() {
         ".c-form-quizz input:nth-child(4)"
     ).value;
 
-    const validateTitle = function () {
+    const validateTitle = function() {
         if (quizTitle.length < 20 || quizTitle.length > 65) {
             return false;
         }
@@ -315,19 +332,7 @@ function validateBasicInfo() {
         return true;
     };
 
-    const validateURL = function () {
-        let test;
-
-        try {
-            test = new URL(quizUrl);
-        } catch (_) {
-            return false;
-        }
-
-        return test.protocol === "http:" || test.protocol === "https:";
-    };
-
-    const validateQuantityQuestions = function () {
+    const validateQuantityQuestions = function() {
         if (quantityQuestions < 3) {
             return false;
         }
@@ -335,7 +340,7 @@ function validateBasicInfo() {
         return true;
     };
 
-    const validateQuantityLevels = function () {
+    const validateQuantityLevels = function() {
         if (quantityLevels < 2) {
             return false;
         }
@@ -346,7 +351,7 @@ function validateBasicInfo() {
     if (
         !(
             validateTitle() &&
-            validateURL() &&
+            validateURL(quizUrl) &&
             validateQuantityQuestions() &&
             validateQuantityLevels()
         )
@@ -378,17 +383,27 @@ function validateBasicInfo() {
 
         openQuestion(document.querySelector(".b-open-question"));
 
-        const objectQuizz = {
-            title: quizTitle,
-            image: quizUrl,
-            questions: quantityQuestions,
-            levels: quantityLevels,
-        };
+        numberOfQuestionsCreation = quantityQuestions;
 
-        console.log(objectQuizz);
+        createQuizzData.title = quizTitle;
+        createQuizzData.image = quizUrl;
+
+        console.log(createQuizzData);
     }
 }
 
 function validateQuestionsInfo() {}
+
+function validateURL(url) {
+    let test;
+
+    try {
+        test = new URL(url);
+    } catch (_) {
+        return false;
+    }
+
+    return test.protocol === "http:" || test.protocol === "https:";
+};
 
 /* ---------- events ---------- */
