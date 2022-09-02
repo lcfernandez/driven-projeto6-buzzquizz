@@ -414,7 +414,7 @@ function validateLevels() {
 
         for (let i = 0; i < forms.length; i++) {
             const levelText = forms[i].querySelector(".s-level input:nth-child(1)").value;
-            const levelPercentage = forms[i].querySelector(".s-level input:nth-child(2)").value;
+            const levelPercentage = Number(forms[i].querySelector(".s-level input:nth-child(2)").value);
             const levelURL = forms[i].querySelector(".s-level input:nth-child(3)").value;
             const levelDescription = forms[i].querySelector(".s-level textarea").value;
 
@@ -443,11 +443,27 @@ function validateLevels() {
             }
         }
 
-        return levelsMinValues.includes("0") ? true : false;
+        return levelsMinValues.includes(0) ? true : false;
     }
 
     if(validateInfo()) {
         console.log(createQuizzData);
+
+        axios
+            .post(`${urlApi}/quizzes`, createQuizzData)
+            .then((res) => {
+                createQuizzData = {
+                    title: "",
+                    image: "",
+                    questions: [],
+                    levels: []
+                };
+
+                console.log(res);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
         // document
         //     .querySelector(".c-create-questions__content")
         //     .classList.add("is-inactive");

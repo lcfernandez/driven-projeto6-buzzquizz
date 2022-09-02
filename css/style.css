@@ -514,7 +514,8 @@ input[type="number"] {
 
 .c-create-quizz__content,
 .c-create-questions__content,
-.c-create-levels__content {
+.c-create-levels__content,
+.c-create-success__content {
     align-items: center;
     display: flex;
     flex-direction: column;
