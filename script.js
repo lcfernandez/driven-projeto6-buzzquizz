@@ -280,19 +280,19 @@ function openQuestion(button) {
             <h2>Respostas incorretas</h2>
 
             <div class="c-fields">
-                <input type="text" placeholder="Resposta correta 1"/>
+                <input type="text" placeholder="Resposta incorreta 1"/>
                 <input type="text" placeholder="URL da imagem 1"/>
             </div>
             <!-- c-fields -->
 
             <div class="c-fields">
-                <input type="text" placeholder="Resposta correta 2"/>
+                <input type="text" placeholder="Resposta incorreta 2"/>
                 <input type="text" placeholder="URL da imagem 2"/>
             </div>
             <!-- c-fields -->
 
             <div class="c-fields">
-                <input type="text" placeholder="Resposta correta 3"/>
+                <input type="text" placeholder="Resposta incorreta 3"/>
                 <input type="text" placeholder="URL da imagem 3"/>
             </div>
             <!-- c-fields -->
@@ -387,12 +387,83 @@ function validateBasicInfo() {
 
         createQuizzData.title = quizTitle;
         createQuizzData.image = quizUrl;
-
-        console.log(createQuizzData);
     }
 }
 
-function validateQuestionsInfo() {}
+function validateQuestions() {
+    const forms = document.querySelectorAll(".c-questions .c-form-quizz");
+
+    const validateInfo = function() {
+        for (let i = 0; i < forms.length; i++) {
+            const questionText = forms[i].querySelector(".s-question input:nth-child(1)").value;
+            const questionColor = forms[i].querySelector(".s-question input:nth-child(2)").value;
+            const rightAnswerText = forms[i].querySelector(".s-right-answer input:nth-child(1)").value;
+            const rightAnswerURL = forms[i].querySelector(".s-right-answer input:nth-child(2)").value;
+            const wrongAnswers = forms[i].querySelectorAll(".s-wrong-answers .c-fields");
+            const wrongAnswersArray = [];
+
+            const validateColor = /^#([0-9a-f]{3}){1,2}$/i;
+
+            const validateQuestionTex = element => element.length >= 20;
+            const validateNotEmptyInput = element => element.length != "";
+
+            const validateWrongAnswers = function() {       
+                for(let j = 0; j < 3; j++) {
+                    const wrongAnswerText = wrongAnswers[j].querySelector("input:nth-child(1)").value;
+                    const wrongAnswerURL = wrongAnswers[j].querySelector("input:nth-child(2)").value;
+        
+                    if (validateNotEmptyInput(wrongAnswerText) && validateURL(wrongAnswerURL)) {
+                        const wrongAnswer = {
+                                text: wrongAnswerText,
+                                image: wrongAnswerURL,
+                                isCorrectAnswer: false
+                            }
+        
+                        wrongAnswersArray.push(wrongAnswer);
+                    } else if (!validateNotEmptyInput(wrongAnswerText) || !validateNotEmptyInput(wrongAnswerURL)) {
+                        return false;
+                    }
+                }
+
+                return wrongAnswersArray.length > 0 ? true : false;
+            };
+
+            if (
+                validateQuestionTex(questionText) &&
+                validateColor.test(questionColor) &&
+                validateNotEmptyInput(rightAnswerText) &&
+                validateURL(rightAnswerURL) &&
+                validateWrongAnswers()
+            ) {
+                const objectQuestion = {
+                    title: questionText,
+                    color: questionColor,
+                    answers: [
+                        {
+                            text: rightAnswerText,
+                            image: rightAnswerURL,
+                            isCorrectAnswer: true
+                        }
+                    ]
+                };
+
+                wrongAnswersArray.forEach(element => objectQuestion.answers.push(element));
+                createQuizzData.questions.push(objectQuestion);
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    if(validateInfo()) {
+        console.log(createQuizzData);
+    } else {
+        alert("Preencha as informações corretamente!");
+        createQuizzData.questions = [];
+    }
+}
 
 function validateURL(url) {
     let test;
