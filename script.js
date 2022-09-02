@@ -406,6 +406,78 @@ function validateBasicInfo() {
     }
 }
 
+function validateLevels() {
+    const forms = document.querySelectorAll(".c-levels .c-form-quizz");
+
+    const validateInfo = function() {
+        const levelsMinValues = [];
+
+        for (let i = 0; i < forms.length; i++) {
+            const levelText = forms[i].querySelector(".s-level input:nth-child(1)").value;
+            const levelPercentage = forms[i].querySelector(".s-level input:nth-child(2)").value;
+            const levelURL = forms[i].querySelector(".s-level input:nth-child(3)").value;
+            const levelDescription = forms[i].querySelector(".s-level textarea").value;
+
+            const validateLevelText = element => element.length >= 10;
+            const validateLevelPercentage = element => element >= 0 && element <= 100 && !levelsMinValues.includes(element);
+            const validateLevelDescription = element => element.length >= 30;
+
+            if (
+                validateLevelText(levelText) &&
+                validateLevelPercentage(levelPercentage) &&
+                validateURL(levelURL) &&
+                validateLevelDescription(levelDescription)
+            ) {
+                levelsMinValues.push(levelPercentage);
+
+                const objectLevel = {
+                    title: levelText,
+                    image: levelURL,
+                    text: levelDescription,
+                    minValue: levelPercentage
+                };
+
+                createQuizzData.levels.push(objectLevel);
+            } else {
+                return false;
+            }
+        }
+
+        return levelsMinValues.includes("0") ? true : false;
+    }
+
+    if(validateInfo()) {
+        console.log(createQuizzData);
+        // document
+        //     .querySelector(".c-create-questions__content")
+        //     .classList.add("is-inactive");
+        // document
+        //     .querySelector(".c-create-levels__content")
+        //     .classList.remove("is-inactive");
+
+        //     const cLevels = document.querySelector(".c-levels");
+
+        // for (let i = 1; i <= quantityLevelsCreation; i++) {
+        //     cLevels.innerHTML += `
+        //         <div class="c-form-quizz">
+        //             <section class="s-level">
+        //                 <div class="c-level__number">
+        //                     <h2>Nível ${i}</h2> <img src="./far-fa-edit.svg" onclick="openLevel(this)" class="b-open-level" />
+        //                 </div>
+        //             </section>
+        //             <!-- s-level -->
+        //         </div>
+        //         <!-- c-form-quizz -->
+        //     `;
+        // }
+
+        // openLevel(document.querySelector(".b-open-level"));
+    } else {
+        alert("Preencha as informações corretamente!");
+        createQuizzData.levels = [];
+    }
+}
+
 function validateQuestions() {
     const forms = document.querySelectorAll(".c-questions .c-form-quizz");
 
@@ -420,7 +492,7 @@ function validateQuestions() {
 
             const validateColor = /^#([0-9a-f]{3}){1,2}$/i;
 
-            const validateQuestionTex = element => element.length >= 20;
+            const validateQuestionText = element => element.length >= 20;
             const validateNotEmptyInput = element => element.length != "";
 
             const validateWrongAnswers = function() {       
@@ -445,7 +517,7 @@ function validateQuestions() {
             };
 
             if (
-                validateQuestionTex(questionText) &&
+                validateQuestionText(questionText) &&
                 validateColor.test(questionColor) &&
                 validateNotEmptyInput(rightAnswerText) &&
                 validateURL(rightAnswerURL) &&

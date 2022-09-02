@@ -548,6 +548,10 @@ input[type="number"] {
     width: 600px;
 }
 
+.c-form-quizz img {
+    cursor: pointer;
+}
+
 .c-form-quizz input,
 .c-form-quizz textarea {
     border: 1px solid #d1d1d1;
