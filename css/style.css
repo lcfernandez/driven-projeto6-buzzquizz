@@ -513,7 +513,8 @@ input[type="number"] {
 }
 
 .c-create-quizz__content,
-.c-create-questions__content {
+.c-create-questions__content,
+.c-create-levels__content {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -523,6 +524,17 @@ input[type="number"] {
     line-height: 23px;
     margin: 37px 0;
     text-align: center;
+}
+
+.c-fields {
+    display: flex;
+    flex-direction: column;
+    margin: 17px 0;
+}
+
+.c-fields input,
+.c-fields textarea {
+    margin: 5px 0;
 }
 
 .c-form-quizz {
@@ -536,7 +548,8 @@ input[type="number"] {
     width: 600px;
 }
 
-.c-form-quizz input {
+.c-form-quizz input,
+.c-form-quizz textarea {
     border: 1px solid #d1d1d1;
     border-radius: 5px;
     font-family: inherit;
@@ -546,10 +559,18 @@ input[type="number"] {
     line-height: 22px;
     margin: 5px 0;
     outline: none;
+}
+
+.c-form-quizz input {
     padding: 0 10px;
 }
 
-.c-form-quizz input::placeholder {
+.c-form-quizz textarea {
+    padding: 10px;
+}
+
+.c-form-quizz input::placeholder,
+.c-form-quizz textarea::placeholder {
     color: #bababa;
     font-style: italic;
     opacity: 1;
@@ -559,16 +580,7 @@ input[type="number"] {
     margin: 5px 0;
 }
 
-.c-fields {
-    display: flex;
-    flex-direction: column;
-    margin: 17px 0;
-}
-
-.c-fields input {
-    margin: 5px 0;
-}
-
+.c-level__number,
 .c-question__number {
     display: flex;
     justify-content: space-between;
@@ -583,6 +595,10 @@ input[type="number"] {
 
     .c-form-quizz {
         width: 375px;
+    }
+
+    .c-form-quizz textarea {
+        height: 177px;
     }
 }
 

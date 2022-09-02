@@ -20,7 +20,7 @@ let answeredQuestions = 0;
 let numberOfQuestions = 0;
 let quizzData = {};
 let pontuation = 0;
-let numberOfQuestionsCreation = 0;
+let quantityLevelsCreation = 0;
 const createQuizzData = {
     title: "",
     image: "",
@@ -250,6 +250,23 @@ function criarQuizz() {
     abaCriarQuizz.classList.remove("is-inactive");
 }
 
+function openLevel(button) {
+    const levelNumber = button.parentNode;
+    const sectionLevel = levelNumber.parentNode;
+
+    levelNumber.querySelector("img").remove();
+
+    sectionLevel.innerHTML += `
+        <div class="c-fields">
+            <input type="text" placeholder="Texto do nível"/>
+            <input type="number" placeholder="% de acerto mínima"/>
+            <input type="text" placeholder="URL da imagem do nível"/>
+            <textarea style="resize: vertical" placeholder="Descrição do nível"></textarea>
+        </div>
+        <!-- c-fields -->
+    `;
+}
+
 function openQuestion(button) {
     const questionNumber = button.parentNode;
     const sectionQuestion = questionNumber.parentNode;
@@ -383,8 +400,7 @@ function validateBasicInfo() {
 
         openQuestion(document.querySelector(".b-open-question"));
 
-        numberOfQuestionsCreation = quantityQuestions;
-
+        quantityLevelsCreation = quantityLevels;
         createQuizzData.title = quizTitle;
         createQuizzData.image = quizUrl;
     }
@@ -420,7 +436,7 @@ function validateQuestions() {
                             }
         
                         wrongAnswersArray.push(wrongAnswer);
-                    } else if (!validateNotEmptyInput(wrongAnswerText) || !validateNotEmptyInput(wrongAnswerURL)) {
+                    } else if (!(wrongAnswerText === "" && wrongAnswerURL === "")) {
                         return false;
                     }
                 }
@@ -458,7 +474,30 @@ function validateQuestions() {
     };
 
     if(validateInfo()) {
-        console.log(createQuizzData);
+        document
+            .querySelector(".c-create-questions__content")
+            .classList.add("is-inactive");
+        document
+            .querySelector(".c-create-levels__content")
+            .classList.remove("is-inactive");
+
+            const cLevels = document.querySelector(".c-levels");
+
+        for (let i = 1; i <= quantityLevelsCreation; i++) {
+            cLevels.innerHTML += `
+                <div class="c-form-quizz">
+                    <section class="s-level">
+                        <div class="c-level__number">
+                            <h2>Nível ${i}</h2> <img src="./far-fa-edit.svg" onclick="openLevel(this)" class="b-open-level" />
+                        </div>
+                    </section>
+                    <!-- s-level -->
+                </div>
+                <!-- c-form-quizz -->
+            `;
+        }
+
+        openLevel(document.querySelector(".b-open-level"));
     } else {
         alert("Preencha as informações corretamente!");
         createQuizzData.questions = [];
