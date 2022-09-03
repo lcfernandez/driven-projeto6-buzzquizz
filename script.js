@@ -21,7 +21,7 @@ let numberOfQuestions = 0;
 let quizzData = {};
 let pontuation = 0;
 let quantityLevelsCreation = 0;
-const createQuizzData = {
+let createQuizzData = {
     title: "",
     image: "",
     questions: [],
@@ -447,51 +447,54 @@ function validateLevels() {
     }
 
     if(validateInfo()) {
-        console.log(createQuizzData);
+        document
+            .querySelector(".c-create-levels__content")
+            .classList.add("is-inactive");
+        document
+            .querySelector(".c-create-success__content")
+            .classList.remove("is-inactive");
 
-        axios
-            .post(`${urlApi}/quizzes`, createQuizzData)
-            .then((res) => {
-                createQuizzData = {
-                    title: "",
-                    image: "",
-                    questions: [],
-                    levels: []
-                };
+        const quizzSuccessPosition = document.querySelector(".c-success ul");
+        quizzSuccessPosition.innerHTML = "";
 
-                console.log(res);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-        // document
-        //     .querySelector(".c-create-questions__content")
-        //     .classList.add("is-inactive");
-        // document
-        //     .querySelector(".c-create-levels__content")
-        //     .classList.remove("is-inactive");
+        const promise = axios.post(urlApi, createQuizzData);
+        promise.then((res) => {
+            createQuizzData = {
+                title: "",
+                image: "",
+                questions: [],
+                levels: []
+            };
 
-        //     const cLevels = document.querySelector(".c-levels");
+            quizzSuccessPosition.innerHTML += `
+                <li
+                    class="c-quizzes-list__item"
+                    onclick="openQuizz(this)"
+                    data-id="${res.data.id}"
+                >
+                    <img
+                        src="${res.data.image}"
+                    />
+                    <div class="c-quizzes-list__gradient"></div>
+                    <h2>${res.data.title}</h2>
+                </li>
+            `;
+        });
 
-        // for (let i = 1; i <= quantityLevelsCreation; i++) {
-        //     cLevels.innerHTML += `
-        //         <div class="c-form-quizz">
-        //             <section class="s-level">
-        //                 <div class="c-level__number">
-        //                     <h2>Nível ${i}</h2> <img src="./far-fa-edit.svg" onclick="openLevel(this)" class="b-open-level" />
-        //                 </div>
-        //             </section>
-        //             <!-- s-level -->
-        //         </div>
-        //         <!-- c-form-quizz -->
-        //     `;
-        // }
-
-        // openLevel(document.querySelector(".b-open-level"));
+        promise.catch((err) => {
+            console.error(err);
+        });
     } else {
         alert("Preencha as informações corretamente!");
         createQuizzData.levels = [];
     }
+}
+
+function successBackHome () {
+    document.querySelector(".c-create-success__content").classList.add("is-inactive");
+    document.querySelector(".c-create-quizz__content").classList.remove("is-inactive");
+    document.querySelector(".c-create-quizz").classList.add("is-inactive");
+    document.querySelector(".c-homepage").classList.remove("is-inactive");
 }
 
 function validateQuestions() {
