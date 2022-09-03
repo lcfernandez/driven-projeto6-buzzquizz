@@ -161,11 +161,23 @@ input[type="number"] {
     border-radius: 4px;
     margin: 50px 0px;
     height: 181px;
-    width: 1051px;
+    width: 340px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+@media (min-width: 761px) {
+    .create-quizz {
+        width: 695px;
+    }
+}
+
+@media (min-width: 1116px) {
+    .create-quizz {
+        width: 1051px;
+    }
 }
 
 .create-quizz span {
@@ -210,8 +222,14 @@ input[type="number"] {
 }
 
 @media (min-width: 1116px) {
+    .c-homepage__content {
+        width: 1065px;
+        justify-content: flex-start;
+    }
+    
     .c-all-quizzes {
         max-width: 1065px;
+        margin: 35px 0 0;
     }
 }
 
