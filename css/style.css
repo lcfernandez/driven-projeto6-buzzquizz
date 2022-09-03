@@ -124,6 +124,10 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+main {
+    min-height: 100vh;
+}
+
 /* ---------- classes ---------- */
 
 /* Header */
