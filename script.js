@@ -25,7 +25,7 @@ let createQuizzData = {
     title: "",
     image: "",
     questions: [],
-    levels: []
+    levels: [],
 };
 
 /* ---------- assignments ---------- */
@@ -98,6 +98,9 @@ function openQuizz(quizz) {
 
     const homepage = document.querySelector(".c-homepage");
     homepage.classList.add("is-inactive");
+
+    const createPage = document.querySelector(".c-create-quizz");
+    createPage.classList.add("is-inactive");
 
     quizzpage.classList.remove("is-inactive");
 
@@ -341,7 +344,7 @@ function validateBasicInfo() {
         ".c-form-quizz input:nth-child(4)"
     ).value;
 
-    const validateTitle = function() {
+    const validateTitle = function () {
         if (quizTitle.length < 20 || quizTitle.length > 65) {
             return false;
         }
@@ -349,7 +352,7 @@ function validateBasicInfo() {
         return true;
     };
 
-    const validateQuantityQuestions = function() {
+    const validateQuantityQuestions = function () {
         if (quantityQuestions < 3) {
             return false;
         }
@@ -357,7 +360,7 @@ function validateBasicInfo() {
         return true;
     };
 
-    const validateQuantityLevels = function() {
+    const validateQuantityLevels = function () {
         if (quantityLevels < 2) {
             return false;
         }
@@ -409,18 +412,28 @@ function validateBasicInfo() {
 function validateLevels() {
     const forms = document.querySelectorAll(".c-levels .c-form-quizz");
 
-    const validateInfo = function() {
+    const validateInfo = function () {
         const levelsMinValues = [];
 
         for (let i = 0; i < forms.length; i++) {
-            const levelText = forms[i].querySelector(".s-level input:nth-child(1)").value;
-            const levelPercentage = Number(forms[i].querySelector(".s-level input:nth-child(2)").value);
-            const levelURL = forms[i].querySelector(".s-level input:nth-child(3)").value;
-            const levelDescription = forms[i].querySelector(".s-level textarea").value;
+            const levelText = forms[i].querySelector(
+                ".s-level input:nth-child(1)"
+            ).value;
+            const levelPercentage = Number(
+                forms[i].querySelector(".s-level input:nth-child(2)").value
+            );
+            const levelURL = forms[i].querySelector(
+                ".s-level input:nth-child(3)"
+            ).value;
+            const levelDescription =
+                forms[i].querySelector(".s-level textarea").value;
 
-            const validateLevelText = element => element.length >= 10;
-            const validateLevelPercentage = element => element >= 0 && element <= 100 && !levelsMinValues.includes(element);
-            const validateLevelDescription = element => element.length >= 30;
+            const validateLevelText = (element) => element.length >= 10;
+            const validateLevelPercentage = (element) =>
+                element >= 0 &&
+                element <= 100 &&
+                !levelsMinValues.includes(element);
+            const validateLevelDescription = (element) => element.length >= 30;
 
             if (
                 validateLevelText(levelText) &&
@@ -434,7 +447,7 @@ function validateLevels() {
                     title: levelText,
                     image: levelURL,
                     text: levelDescription,
-                    minValue: levelPercentage
+                    minValue: levelPercentage,
                 };
 
                 createQuizzData.levels.push(objectLevel);
@@ -444,9 +457,9 @@ function validateLevels() {
         }
 
         return levelsMinValues.includes(0) ? true : false;
-    }
+    };
 
-    if(validateInfo()) {
+    if (validateInfo()) {
         document
             .querySelector(".c-create-levels__content")
             .classList.add("is-inactive");
@@ -463,7 +476,7 @@ function validateLevels() {
                 title: "",
                 image: "",
                 questions: [],
-                levels: []
+                levels: [],
             };
 
             quizzSuccessPosition.innerHTML += `
@@ -490,9 +503,13 @@ function validateLevels() {
     }
 }
 
-function successBackHome () {
-    document.querySelector(".c-create-success__content").classList.add("is-inactive");
-    document.querySelector(".c-create-quizz__content").classList.remove("is-inactive");
+function successBackHome() {
+    document
+        .querySelector(".c-create-success__content")
+        .classList.add("is-inactive");
+    document
+        .querySelector(".c-create-quizz__content")
+        .classList.remove("is-inactive");
     document.querySelector(".c-create-quizz").classList.add("is-inactive");
     document.querySelector(".c-homepage").classList.remove("is-inactive");
 }
@@ -500,34 +517,55 @@ function successBackHome () {
 function validateQuestions() {
     const forms = document.querySelectorAll(".c-questions .c-form-quizz");
 
-    const validateInfo = function() {
+    const validateInfo = function () {
         for (let i = 0; i < forms.length; i++) {
-            const questionText = forms[i].querySelector(".s-question input:nth-child(1)").value;
-            const questionColor = forms[i].querySelector(".s-question input:nth-child(2)").value;
-            const rightAnswerText = forms[i].querySelector(".s-right-answer input:nth-child(1)").value;
-            const rightAnswerURL = forms[i].querySelector(".s-right-answer input:nth-child(2)").value;
-            const wrongAnswers = forms[i].querySelectorAll(".s-wrong-answers .c-fields");
+            const questionText = forms[i].querySelector(
+                ".s-question input:nth-child(1)"
+            ).value;
+            const questionColor = forms[i].querySelector(
+                ".s-question input:nth-child(2)"
+            ).value;
+            const rightAnswerText = forms[i].querySelector(
+                ".s-right-answer input:nth-child(1)"
+            ).value;
+            const rightAnswerURL = forms[i].querySelector(
+                ".s-right-answer input:nth-child(2)"
+            ).value;
+            const wrongAnswers = forms[i].querySelectorAll(
+                ".s-wrong-answers .c-fields"
+            );
             const wrongAnswersArray = [];
 
             const validateColor = /^#([0-9a-f]{3}){1,2}$/i;
 
-            const validateQuestionText = element => element.length >= 20;
-            const validateNotEmptyInput = element => element.length != "";
+            const validateQuestionText = (element) => element.length >= 20;
+            const validateNotEmptyInput = (element) => element.length != "";
 
-            const validateWrongAnswers = function() {       
-                for(let j = 0; j < 3; j++) {
-                    const wrongAnswerText = wrongAnswers[j].querySelector("input:nth-child(1)").value;
-                    const wrongAnswerURL = wrongAnswers[j].querySelector("input:nth-child(2)").value;
-        
-                    if (validateNotEmptyInput(wrongAnswerText) && validateURL(wrongAnswerURL)) {
+            const validateWrongAnswers = function () {
+                for (let j = 0; j < 3; j++) {
+                    const wrongAnswerText =
+                        wrongAnswers[j].querySelector(
+                            "input:nth-child(1)"
+                        ).value;
+                    const wrongAnswerURL =
+                        wrongAnswers[j].querySelector(
+                            "input:nth-child(2)"
+                        ).value;
+
+                    if (
+                        validateNotEmptyInput(wrongAnswerText) &&
+                        validateURL(wrongAnswerURL)
+                    ) {
                         const wrongAnswer = {
-                                text: wrongAnswerText,
-                                image: wrongAnswerURL,
-                                isCorrectAnswer: false
-                            }
-        
+                            text: wrongAnswerText,
+                            image: wrongAnswerURL,
+                            isCorrectAnswer: false,
+                        };
+
                         wrongAnswersArray.push(wrongAnswer);
-                    } else if (!(wrongAnswerText === "" && wrongAnswerURL === "")) {
+                    } else if (
+                        !(wrongAnswerText === "" && wrongAnswerURL === "")
+                    ) {
                         return false;
                     }
                 }
@@ -549,12 +587,14 @@ function validateQuestions() {
                         {
                             text: rightAnswerText,
                             image: rightAnswerURL,
-                            isCorrectAnswer: true
-                        }
-                    ]
+                            isCorrectAnswer: true,
+                        },
+                    ],
                 };
 
-                wrongAnswersArray.forEach(element => objectQuestion.answers.push(element));
+                wrongAnswersArray.forEach((element) =>
+                    objectQuestion.answers.push(element)
+                );
                 createQuizzData.questions.push(objectQuestion);
             } else {
                 return false;
@@ -564,7 +604,7 @@ function validateQuestions() {
         return true;
     };
 
-    if(validateInfo()) {
+    if (validateInfo()) {
         document
             .querySelector(".c-create-questions__content")
             .classList.add("is-inactive");
@@ -572,7 +612,7 @@ function validateQuestions() {
             .querySelector(".c-create-levels__content")
             .classList.remove("is-inactive");
 
-            const cLevels = document.querySelector(".c-levels");
+        const cLevels = document.querySelector(".c-levels");
 
         for (let i = 1; i <= quantityLevelsCreation; i++) {
             cLevels.innerHTML += `
@@ -605,6 +645,6 @@ function validateURL(url) {
     }
 
     return test.protocol === "http:" || test.protocol === "https:";
-};
+}
 
 /* ---------- events ---------- */
