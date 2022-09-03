@@ -246,7 +246,7 @@ function criarQuizz() {
     const paginaInicial = document.querySelector(".c-homepage__content");
     paginaInicial.classList.add("is-inactive");
 
-    const abaCriarQuizz = document.querySelector("c-create-quizz");
+    const abaCriarQuizz = document.querySelector(".c-create-quizz");
     abaCriarQuizz.classList.remove("is-inactive");
 }
 
