@@ -179,11 +179,11 @@ function endQuizz() {
                 <p>${bestLevel.text}</p>
             </div>
         </div>
-        <button class="c-quizzpage__restart-quizz">Reiniciar Quizz</button>
-        <button class="c-quizzpage__return-home">Voltar para home</button>
+        <button class="c-next-step">Reiniciar Quizz</button>
+        <button class="c-return-home">Voltar para home</button>
     `;
 
-    document.querySelector(".c-quizzpage__return-home").scrollIntoView({
+    document.querySelector(".c-return-home").scrollIntoView({
         behavior: "smooth",
     });
 }
