@@ -15,41 +15,11 @@
 
     <body>
         <header class="main-header">
-            <h1>BuzzQuizz</h1>
+            <h1 onclick="returnHome()">BuzzQuizz</h1>
         </header>
 
         <main class="c-homepage">
-            <div class="create-quizz is-inactive">
-                <span>Você não criou nenhum quizz ainda :(</span>
-                <button class="create-quizz__button" onclick="criarQuizz()">
-                    Criar Quizz
-                </button>
-            </div>
-
-            <div class="your-quizzes__content">
-                <div class="your-quizzes">
-                    <div class="your-quizzes__title">
-                        <span>Seus Quizzes</span>
-                        <ion-icon
-                            name="add-circle"
-                            onclick="criarQuizz()"
-                        ></ion-icon>
-                    </div>
-                    <ul class="lista-quizz">
-                        <li class="lista-quizz__item" onclick="openQuizz(this)">
-                            <img
-                                src="https://lumiere-a.akamaihd.net/v1/images/original_1628718691_los-simpson---star_-_3_e73a2761.jpeg"
-                                alt="Capa do quizz"
-                            />
-                            <div class="c-quizzes-list__gradient"></div>
-                            <h2>
-                                Acerte os personagens corretos dos Simpsons e
-                                prove seu amor!
-                            </h2>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div class="c-homepage__your-quizzes"></div>
 
             <div class="c-homepage__content">
                 <div class="c-all-quizzes">
@@ -118,7 +88,10 @@
                 </div>
                 <!-- c-success -->
 
-                <button class="c-next-step" onclick="openQuizz(this.parentNode.querySelector('.c-quizzes-list__item'))">
+                <button
+                    class="c-next-step"
+                    onclick="openQuizz(this.parentNode.querySelector('.c-quizzes-list__item'))"
+                >
                     Acessar Quizz
                 </button>
 

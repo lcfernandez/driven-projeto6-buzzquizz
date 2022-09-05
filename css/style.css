@@ -93,6 +93,7 @@
     font-size: 17px;
     line-height: 20px;
     color: #484848;
+    word-wrap: break-word;
 }
 
 /* ---------- tags ---------- */
@@ -107,6 +108,7 @@ h1 {
     font-weight: 700;
     font-size: 37px;
     color: #fff;
+    cursor: pointer;
 }
 
 /* ---------- box-sizing best practices ---------- */
@@ -217,34 +219,18 @@ main {
     cursor: pointer;
 }
 
-.c-homepage__content {
+.c-homepage__content,
+.c-homepage__your-quizzes {
     margin-left: calc(15px + 18px);
     margin-right: 18px;
     display: flex;
     justify-content: center;
 }
 
-.c-all-quizzes {
+.c-all-quizzes,
+.your-quizzes__content {
     margin: 35px auto 0;
     max-width: 355px;
-}
-
-@media (min-width: 761px) {
-    .c-all-quizzes {
-        max-width: 710px;
-    }
-}
-
-@media (min-width: 1116px) {
-    .c-homepage__content {
-        width: 1065px;
-        justify-content: flex-start;
-    }
-    
-    .c-all-quizzes {
-        max-width: 1065px;
-        margin: 35px 0 0;
-    }
 }
 
 .c-all-quizzes__title {
@@ -261,22 +247,6 @@ main {
     flex-wrap: wrap;
 }
 
-.your-quizzes__content {
-    margin-left: calc(15px + 18px);
-    margin-right: 18px;
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-self:flex-start;
-}
-
-.your-quizzes {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-left: 55px;
-}
-
 .lista-quizz {
     display: flex;
     margin-top: 20px;
@@ -284,19 +254,18 @@ main {
 
 .your-quizzes__title {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.your-quizzes ion-icon {
+.your-quizzes__title ion-icon {
     font-size: 31px;
+    margin-right: 15px;
     color: #ec362d;
-}
-
-.your-quizzes ion-icon:hover {
     cursor: pointer;
 }
 
-.your-quizzes span {
+.your-quizzes__title span {
     font-size: 20px;
     font-weight: 700;
     display: block;
@@ -332,6 +301,31 @@ main {
     z-index: 1;
     top: 0;
     left: 0;
+}
+
+@media (min-width: 761px) {
+    .c-all-quizzes,
+    .your-quizzes__content {
+        max-width: 710px;
+    }
+
+    .your-quizzes__title {
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 1116px) {
+    .c-homepage__content,
+    .c-homepage__your-quizzes {
+        width: 1065px;
+        justify-content: flex-start;
+    }
+
+    .c-all-quizzes,
+    .your-quizzes__content {
+        max-width: 1065px;
+        margin: 35px 0 0;
+    }
 }
 
 /* Quizzpage */
@@ -478,6 +472,7 @@ main {
 
     .c-quizzpage__img-text p {
         margin-left: 21px;
+        width: 304px;
     }
 }
 

@@ -41,6 +41,74 @@ listQuizzes();
 
 // Homepage
 
+function listYourQuizzes() {
+    const yourQuizzes = [13223, 13221, 13220];
+    // const yourQuizzes = [];
+
+    let yourQuizzesList = "";
+
+    const yourQuizzesElement = document.querySelector(
+        ".c-homepage__your-quizzes"
+    );
+    yourQuizzesElement.innerHTML = "";
+
+    if (yourQuizzes.length === 0) {
+        yourQuizzesElement.innerHTML = `
+            <div class="create-quizz">
+                <span>Você não criou nenhum quizz ainda :(</span>
+                <button class="create-quizz__button" onclick="criarQuizz()">
+                    Criar Quizz
+                </button>
+            </div>
+        `;
+    } else {
+        let promise = {};
+
+        yourQuizzes.forEach((id) => {
+            promise = axios
+                .get(`${urlApi}/${id}`)
+                .then((res) => {
+                    yourQuizzesList += `
+                        <li
+                        class="lista-quizz__item"
+                        onclick="openQuizz(this)"
+                        data-id="${res.data.id}"
+                        >
+                            <img
+                                src="${res.data.image}"
+                                alt="Capa do quizz"
+                            />
+                            <div class="c-quizzes-list__gradient"></div>
+                            <h2>${res.data.title}</h2>
+                        </li>
+                    `;
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        });
+
+        promise.then(() => {
+            yourQuizzesElement.innerHTML += `
+                <div class="your-quizzes__content">
+                    <div class="your-quizzes">
+                        <div class="your-quizzes__title">
+                            <span>Seus Quizzes</span>
+                            <ion-icon
+                                name="add-circle"
+                                onclick="criarQuizz()"
+                            ></ion-icon>
+                        </div>
+                        <ul class="lista-quizz">
+                            ${yourQuizzesList}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        });
+    }
+}
+
 function listQuizzes() {
     const quizzListElement = document.querySelector(".c-quizzes-list");
     quizzListElement.innerHTML = "";
@@ -67,6 +135,8 @@ function listQuizzes() {
         .catch((err) => {
             console.error(err);
         });
+
+    listYourQuizzes();
 }
 
 // Quizzpage
@@ -100,6 +170,7 @@ function openQuizz(quizz) {
     const quizzId = quizz.dataset.id;
     let renderedQuestions = 0;
     pontuation = 0;
+    answeredQuestions = 0;
 
     homepage.classList.add("is-inactive");
     createPage.classList.add("is-inactive");
@@ -147,8 +218,6 @@ function openQuizz(quizz) {
         .catch((err) => {
             console.error(err);
         });
-
-    answeredQuestions = 0;
 }
 
 function endQuizz() {
@@ -245,17 +314,13 @@ function returnHome() {
     document.querySelector(".your-quizzes__content").scrollIntoView({
         block: "center",
     });
+
+    listQuizzes();
 }
 
 // Create Quizz
 
 function criarQuizz() {
-    const caixaCriarQuizz = document.querySelector(".create-quizz");
-    caixaCriarQuizz.classList.add("is-inactive");
-
-    const caixaSeusQuizzes = document.querySelector(".your-quizzes__content");
-    caixaSeusQuizzes.classList.add("is-inactive");
-
     const paginaInicial = document.querySelector(".c-homepage");
     paginaInicial.classList.add("is-inactive");
 
