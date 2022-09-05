@@ -57,7 +57,6 @@ function endLoading() {
 function listYourQuizzes() {
     const yourQuizzesSerialized = localStorage.getItem("userQuizzes");
     const yourQuizzes = JSON.parse(yourQuizzesSerialized);
-    console.log(yourQuizzes)
 
     let yourQuizzesList = "";
 
@@ -75,6 +74,8 @@ function listYourQuizzes() {
                 </button>
             </div>
         `;
+        endLoading();
+        document.querySelector(".c-create-quizz").classList.add("is-inactive");
     } else {
         let promise = {};
 
@@ -109,7 +110,7 @@ function listYourQuizzes() {
                 });
         });
 
-        promise.then(() => {
+        setTimeout(() => {
             yourQuizzesElement.innerHTML += `
                 <div class="your-quizzes__content">
                     <div class="your-quizzes">
@@ -126,7 +127,9 @@ function listYourQuizzes() {
                     </div>
                 </div>
             `;
-        });
+            endLoading();
+            document.querySelector(".c-create-quizz").classList.add("is-inactive");
+        }, 400);
     }
 }
 
@@ -154,7 +157,6 @@ function listQuizzes() {
                     </li>
                 `;
             });
-            endLoading();
         })
         .catch((err) => {
             console.error(err);
@@ -340,11 +342,11 @@ function answerQuestion(selected) {
 function returnHome() {
     homepage.classList.remove("is-inactive");
 
-    const inactivate = function(element) {
+    const inactivate = function (element) {
         if (!element.classList.contains("is-inactive")) {
             element.classList.add("is-inactive");
         }
-    }
+    };
 
     inactivate(quizzpage);
     inactivate(createPage);
@@ -365,7 +367,9 @@ function criarQuizz() {
 
     const abaCriarQuizz = document.querySelector(".c-create-quizz");
     abaCriarQuizz.classList.remove("is-inactive");
-    abaCriarQuizz.querySelector(".c-create-quizz__content").classList.remove("is-inactive");
+    abaCriarQuizz
+        .querySelector(".c-create-quizz__content")
+        .classList.remove("is-inactive");
 }
 
 function openLevel(button) {
@@ -522,18 +526,10 @@ function validateBasicInfo() {
         createQuizzData.title = quizTitle;
         createQuizzData.image = quizUrl;
 
-        document.querySelector(
-            ".c-form-quizz input:nth-child(1)"
-        ).value = "";
-        document.querySelector(
-            ".c-form-quizz input:nth-child(2)"
-        ).value = "";
-        document.querySelector(
-            ".c-form-quizz input:nth-child(3)"
-        ).value = "";
-        document.querySelector(
-            ".c-form-quizz input:nth-child(4)"
-        ).value = "";
+        document.querySelector(".c-form-quizz input:nth-child(1)").value = "";
+        document.querySelector(".c-form-quizz input:nth-child(2)").value = "";
+        document.querySelector(".c-form-quizz input:nth-child(3)").value = "";
+        document.querySelector(".c-form-quizz input:nth-child(4)").value = "";
     }
 }
 
@@ -630,7 +626,7 @@ function validateLevels() {
                 </li>
             `;
 
-            forms.forEach(element => element.remove());
+            forms.forEach((element) => element.remove());
 
             endLoading();
             document.querySelector(".c-homepage").classList.add("is-inactive");
@@ -660,6 +656,8 @@ function successBackHome() {
         .classList.remove("is-inactive");
     document.querySelector(".c-create-quizz").classList.add("is-inactive");
     document.querySelector(".c-homepage").classList.remove("is-inactive");
+
+    listQuizzes();
 }
 
 function validateQuestions() {
@@ -778,7 +776,7 @@ function validateQuestions() {
 
         openLevel(document.querySelector(".b-open-level"));
 
-        forms.forEach(element => element.remove());
+        forms.forEach((element) => element.remove());
     } else {
         alert("Preencha as informações corretamente!");
         createQuizzData.questions = [];
@@ -795,6 +793,16 @@ function validateURL(url) {
     }
 
     return test.protocol === "http:" || test.protocol === "https:";
+}
+
+function editQuizz(){
+    alert("Funcionalidade em construção...");
+    returnHome();
+}
+
+function deleteQuizz(){
+    alert("Funcionalidade em construção...");
+    returnHome();
 }
 
 /* ---------- events ---------- */
