@@ -27,6 +27,7 @@ let createQuizzData = {
     questions: [],
     levels: [],
 };
+let userQuizzes = [];
 
 /* ---------- assignments ---------- */
 
@@ -479,17 +480,23 @@ function validateLevels() {
                 levels: [],
             };
 
+            const userQuizz = res.data;
+            userQuizzes.push(userQuizz);
+
+            const userQuizzesSerialized = JSON.stringify(userQuizzes);
+            localStorage.setItem("userQuizzes", userQuizzesSerialized);
+
             quizzSuccessPosition.innerHTML += `
                 <li
                     class="c-quizzes-list__item"
                     onclick="openQuizz(this)"
-                    data-id="${res.data.id}"
+                    data-id="${userQuizz.id}"
                 >
                     <img
-                        src="${res.data.image}"
+                        src="${userQuizz.image}"
                     />
                     <div class="c-quizzes-list__gradient"></div>
-                    <h2>${res.data.title}</h2>
+                    <h2>${userQuizz.title}</h2>
                 </li>
             `;
         });
