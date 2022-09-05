@@ -30,7 +30,6 @@ let createQuizzData = {
     questions: [],
     levels: [],
 };
-let userQuizzes = [];
 
 /* ---------- assignments ---------- */
 
@@ -312,7 +311,16 @@ function answerQuestion(selected) {
 
 function returnHome() {
     homepage.classList.remove("is-inactive");
-    quizzpage.classList.add("is-inactive");
+
+    const inactivate = function(element) {
+        if (!element.classList.contains("is-inactive")) {
+            element.classList.add("is-inactive");
+        }
+    }
+
+    inactivate(quizzpage);
+    inactivate(createPage);
+    inactivate(createPage.querySelector(".c-create-success__content"));
 
     document.querySelector(".c-homepage__your-quizzes").scrollIntoView({
         block: "center",
@@ -329,6 +337,7 @@ function criarQuizz() {
 
     const abaCriarQuizz = document.querySelector(".c-create-quizz");
     abaCriarQuizz.classList.remove("is-inactive");
+    abaCriarQuizz.querySelector(".c-create-quizz__content").classList.remove("is-inactive");
 }
 
 function openLevel(button) {
@@ -484,6 +493,20 @@ function validateBasicInfo() {
         quantityLevelsCreation = quantityLevels;
         createQuizzData.title = quizTitle;
         createQuizzData.image = quizUrl;
+
+
+        document.querySelector(
+            ".c-form-quizz input:nth-child(1)"
+        ).value = "";
+        document.querySelector(
+            ".c-form-quizz input:nth-child(2)"
+        ).value = "";
+        document.querySelector(
+            ".c-form-quizz input:nth-child(3)"
+        ).value = "";
+        document.querySelector(
+            ".c-form-quizz input:nth-child(4)"
+        ).value = "";
     }
 }
 
@@ -558,9 +581,17 @@ function validateLevels() {
             };
 
             const userQuizz = res.data;
+            let userQuizzes = [];
+            const serializedUserQuizzes = localStorage.getItem("userQuizzes");
+
+            if (serializedUserQuizzes) {
+                userQuizzes = JSON.parse(serializedUserQuizzes);
+            }
+
             userQuizzes.push(userQuizz);
 
             const userQuizzesSerialized = JSON.stringify(userQuizzes);
+
             localStorage.setItem("userQuizzes", userQuizzesSerialized);
 
             quizzSuccessPosition.innerHTML += `
@@ -576,6 +607,8 @@ function validateLevels() {
                     <h2>${userQuizz.title}</h2>
                 </li>
             `;
+
+            forms.forEach(element => element.remove());
         });
 
         promise.catch((err) => {
@@ -713,6 +746,8 @@ function validateQuestions() {
         }
 
         openLevel(document.querySelector(".b-open-level"));
+
+        forms.forEach(element => element.remove());
     } else {
         alert("Preencha as informações corretamente!");
         createQuizzData.questions = [];
