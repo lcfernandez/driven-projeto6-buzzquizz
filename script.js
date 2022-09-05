@@ -42,6 +42,18 @@ listQuizzes();
 
 // Homepage
 
+function startLoading() {
+    document.querySelector(".c-loading").classList.remove("is-inactive");
+    document.querySelector(".c-homepage").classList.add("is-inactive");
+    document.querySelector(".c-create-quizz").classList.add("is-inactive");
+}
+
+function endLoading() {
+    document.querySelector(".c-loading").classList.add("is-inactive");
+    document.querySelector(".c-homepage").classList.remove("is-inactive");
+    document.querySelector(".c-create-quizz").classList.remove("is-inactive");
+}
+
 function listYourQuizzes() {
     const yourQuizzesSerialized = localStorage.getItem("userQuizzes");
     const yourQuizzes = JSON.parse(yourQuizzesSerialized);
@@ -111,6 +123,8 @@ function listYourQuizzes() {
 }
 
 function listQuizzes() {
+    startLoading();
+
     const quizzListElement = document.querySelector(".c-quizzes-list");
     quizzListElement.innerHTML = "";
 
@@ -132,6 +146,7 @@ function listQuizzes() {
                     </li>
                 `;
             });
+            endLoading();
         })
         .catch((err) => {
             console.error(err);
@@ -173,12 +188,9 @@ function openQuizz(quizz) {
     pontuation = 0;
     answeredQuestions = 0;
 
-    homepage.classList.add("is-inactive");
-    createPage.classList.add("is-inactive");
-    quizzpage.classList.remove("is-inactive");
-
     quizzpage.innerHTML = "";
 
+    startLoading();
     axios
         .get(`${urlApi}/${quizzId}`)
         .then((res) => {
@@ -215,6 +227,11 @@ function openQuizz(quizz) {
 
             numberOfQuestions = res.data.questions.length;
             quizzData = res.data;
+
+            endLoading();
+            homepage.classList.add("is-inactive");
+            createPage.classList.add("is-inactive");
+            quizzpage.classList.remove("is-inactive");
         })
         .catch((err) => {
             console.error(err);
@@ -254,8 +271,10 @@ function endQuizz() {
         <button class="c-return-home" onclick="returnHome()">Voltar para home</button>
     `;
 
-    document.querySelector(".c-return-home").scrollIntoView({
+    document.querySelector(".c-quizzpage").scrollIntoView({
+        block: "end",
         behavior: "smooth",
+        inline: "start",
     });
 }
 
@@ -470,7 +489,7 @@ function validateBasicInfo() {
                 <div class="c-form-quizz">
                     <section class="s-question">
                         <div class="c-question__number">
-                            <h2>Pergunta ${i}</h2> <img src="./far-fa-edit.svg" onclick="openQuestion(this)" class="b-open-question" />
+                            <h2>Pergunta ${i}</h2> <img src="./img/far-fa-edit.svg" onclick="openQuestion(this)" class="b-open-question" />
                         </div>
                     </section>
                     <!-- s-question -->
@@ -538,12 +557,7 @@ function validateLevels() {
     };
 
     if (validateInfo()) {
-        document
-            .querySelector(".c-create-levels__content")
-            .classList.add("is-inactive");
-        document
-            .querySelector(".c-create-success__content")
-            .classList.remove("is-inactive");
+        startLoading();
 
         const quizzSuccessPosition = document.querySelector(".c-success ul");
         quizzSuccessPosition.innerHTML = "";
@@ -576,6 +590,15 @@ function validateLevels() {
                     <h2>${userQuizz.title}</h2>
                 </li>
             `;
+
+            endLoading();
+            document.querySelector(".c-homepage").classList.add("is-inactive");
+            document
+                .querySelector(".c-create-levels__content")
+                .classList.add("is-inactive");
+            document
+                .querySelector(".c-create-success__content")
+                .classList.remove("is-inactive");
         });
 
         promise.catch((err) => {
@@ -703,7 +726,7 @@ function validateQuestions() {
                 <div class="c-form-quizz">
                     <section class="s-level">
                         <div class="c-level__number">
-                            <h2>Nível ${i}</h2> <img src="./far-fa-edit.svg" onclick="openLevel(this)" class="b-open-level" />
+                            <h2>Nível ${i}</h2> <img src="./img/far-fa-edit.svg" onclick="openLevel(this)" class="b-open-level" />
                         </div>
                     </section>
                     <!-- s-level -->
