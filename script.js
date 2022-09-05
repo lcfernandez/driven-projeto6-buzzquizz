@@ -14,6 +14,9 @@
 
 const urlApi = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 const quizzpage = document.querySelector(".c-quizzpage");
+const homepage = document.querySelector(".c-homepage");
+const createPage = document.querySelector(".c-create-quizz");
+let lastQuizz = {};
 let quizzAnswers = [];
 let quizzAnswersUl = "";
 let answeredQuestions = 0;
@@ -94,15 +97,13 @@ function getAndSortAnswers(question) {
 }
 
 function openQuizz(quizz) {
+    lastQuizz = quizz;
     const quizzId = quizz.dataset.id;
     let renderedQuestions = 0;
+    pontuation = 0;
 
-    const homepage = document.querySelector(".c-homepage");
     homepage.classList.add("is-inactive");
-
-    const createPage = document.querySelector(".c-create-quizz");
     createPage.classList.add("is-inactive");
-
     quizzpage.classList.remove("is-inactive");
 
     quizzpage.innerHTML = "";
@@ -180,8 +181,8 @@ function endQuizz() {
                 <p>${bestLevel.text}</p>
             </div>
         </div>
-        <button class="c-next-step">Reiniciar Quizz</button>
-        <button class="c-return-home">Voltar para home</button>
+        <button class="c-next-step" onclick="openQuizz(lastQuizz)">Reiniciar Quizz</button>
+        <button class="c-return-home" onclick="returnHome()">Voltar para home</button>
     `;
 
     document.querySelector(".c-return-home").scrollIntoView({
@@ -236,6 +237,15 @@ function answerQuestion(selected) {
     } else {
         setTimeout(scrollToNextQuestion, 2000);
     }
+}
+
+function returnHome() {
+    homepage.classList.remove("is-inactive");
+    quizzpage.classList.add("is-inactive");
+
+    document.querySelector(".your-quizzes__content").scrollIntoView({
+        block: "center",
+    });
 }
 
 // Create Quizz
