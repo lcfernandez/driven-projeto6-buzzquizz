@@ -326,6 +326,10 @@ main {
     left: 0;
 }
 
+.lista-quizz__nav {
+    background-color: #ec362d;
+}
+
 @media (min-width: 761px) {
     .c-all-quizzes,
     .your-quizzes__content {
@@ -333,6 +337,7 @@ main {
     }
 
     .your-quizzes__title {
+        min-width: 710px;
         justify-content: flex-start;
     }
 }

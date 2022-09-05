@@ -57,6 +57,7 @@ function endLoading() {
 function listYourQuizzes() {
     const yourQuizzesSerialized = localStorage.getItem("userQuizzes");
     const yourQuizzes = JSON.parse(yourQuizzesSerialized);
+    console.log(yourQuizzes)
 
     let yourQuizzesList = "";
 
@@ -83,16 +84,23 @@ function listYourQuizzes() {
                 .then((res) => {
                     yourQuizzesList += `
                         <li
-                        class="lista-quizz__item"
-                        onclick="openQuizz(this)"
-                        data-id="${res.data.id}"
+                            class="lista-quizz__item"
+                            onclick="openQuizz(this)"
+                            data-id="${res.data.id}"
                         >
-                            <img
-                                src="${res.data.image}"
-                                alt="Capa do quizz"
-                            />
+                            <img src="${res.data.image}" alt="Capa do quizz" />
                             <div class="c-quizzes-list__gradient"></div>
                             <h2>${res.data.title}</h2>
+                            <nav class="lista-quizz__nav">
+                                <ion-icon
+                                    name="create-outline"
+                                    onclick="editQuizz()"
+                                ></ion-icon>
+                                <ion-icon
+                                    name="trash-outline"
+                                    onclick="deleteQuizz()"
+                                ></ion-icon>
+                            </nav>
                         </li>
                     `;
                 })
