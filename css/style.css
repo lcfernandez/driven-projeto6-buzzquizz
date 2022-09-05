@@ -425,8 +425,7 @@ main {
 }
 
 .c-question__foreground {
-    height: calc(30.1333vw + 25px);
-    max-height: calc(200.2px);
+    height: 100%;
 
     background-color: #fff;
     opacity: 0.7;
@@ -501,10 +500,6 @@ main {
 
     .c-question__answer img {
         margin-bottom: 9px;
-    }
-
-    .c-question__foreground {
-        max-height: calc(212.2px);
     }
 
     .c-quizzpage__img-text p {

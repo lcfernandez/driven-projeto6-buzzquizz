@@ -45,7 +45,6 @@ listQuizzes();
 function listYourQuizzes() {
     const yourQuizzesSerialized = localStorage.getItem("userQuizzes");
     const yourQuizzes = JSON.parse(yourQuizzesSerialized);
-    console.log(yourQuizzes);
 
     let yourQuizzesList = "";
 
@@ -265,10 +264,12 @@ function scrollToNextQuestion() {
         `.c-question:nth-of-type(${answeredQuestions + 1})`
     );
 
-    nextQuestion.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-    });
+    if (nextQuestion !== null) {
+        nextQuestion.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }
 }
 
 function answerQuestion(selected) {
