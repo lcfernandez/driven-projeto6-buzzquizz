@@ -92,18 +92,18 @@ function listYourQuizzes() {
                             <img src="${res.data.image}" alt="Capa do quizz" />
                             <div class="c-quizzes-list__gradient"></div>
                             <h2>${res.data.title}</h2>
-                            <nav class="lista-quizz__nav">
-                                <ion-icon
-                                    name="create-outline"
-                                    onclick="editQuizz()"
-                                ></ion-icon>
-                                <ion-icon
-                                    name="trash-outline"
-                                    onclick="deleteQuizz()"
-                                ></ion-icon>
-                            </nav>
                         </li>
                     `;
+                    {/* <nav class="lista-quizz__nav">
+                        <ion-icon
+                            name="create-outline"
+                            onclick="editQuizz()"
+                        ></ion-icon>
+                        <ion-icon
+                            name="trash-outline"
+                            onclick="deleteQuizz()"
+                        ></ion-icon>
+                    </nav> */}
                 })
                 .catch((err) => {
                     console.error(err);
