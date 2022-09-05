@@ -81,6 +81,7 @@
 .c-question__answer p {
     width: 43.4667vw;
     max-width: 329.91px;
+    word-wrap: break-word;
 }
 
 .c-quizzpage__result img {
@@ -213,9 +214,6 @@ main {
     border-radius: 50px;
     font-size: 21px;
     color: #ec362d;
-}
-
-.create-quizz__button:hover {
     cursor: pointer;
 }
 

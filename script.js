@@ -43,8 +43,9 @@ listQuizzes();
 // Homepage
 
 function listYourQuizzes() {
-    const yourQuizzes = [13223, 13221, 13220];
-    // const yourQuizzes = [];
+    const yourQuizzesSerialized = localStorage.getItem("userQuizzes");
+    const yourQuizzes = JSON.parse(yourQuizzesSerialized);
+    console.log(yourQuizzes);
 
     let yourQuizzesList = "";
 
@@ -53,7 +54,7 @@ function listYourQuizzes() {
     );
     yourQuizzesElement.innerHTML = "";
 
-    if (yourQuizzes.length === 0) {
+    if (yourQuizzes === null || yourQuizzes.length === 0) {
         yourQuizzesElement.innerHTML = `
             <div class="create-quizz">
                 <span>Você não criou nenhum quizz ainda :(</span>
@@ -65,9 +66,9 @@ function listYourQuizzes() {
     } else {
         let promise = {};
 
-        yourQuizzes.forEach((id) => {
+        yourQuizzes.forEach((quizz) => {
             promise = axios
-                .get(`${urlApi}/${id}`)
+                .get(`${urlApi}/${quizz.id}`)
                 .then((res) => {
                     yourQuizzesList += `
                         <li
@@ -312,7 +313,7 @@ function returnHome() {
     homepage.classList.remove("is-inactive");
     quizzpage.classList.add("is-inactive");
 
-    document.querySelector(".your-quizzes__content").scrollIntoView({
+    document.querySelector(".c-homepage__your-quizzes").scrollIntoView({
         block: "center",
     });
 
